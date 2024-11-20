@@ -10,4 +10,5 @@ public class AppCardapioBackApplication {
 		SpringApplication.run(AppCardapioBackApplication.class, args);
 	}
 
+	
 }
