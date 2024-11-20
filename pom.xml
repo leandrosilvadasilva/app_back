@@ -12,7 +12,7 @@
 	<artifactId>app_cardapio_back</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>app_cardapio_back</name>
-	<description>Demo project for Spring Boot</description>
+	<description>App Cardapio Back End</description>
 	<url/>
 	<licenses>
 		<license/>
