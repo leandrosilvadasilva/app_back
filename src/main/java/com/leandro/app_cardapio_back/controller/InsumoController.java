@@ -23,9 +23,7 @@ public class InsumoController {
 
    
     private final InsumoRepository insumoRepository;
-    
-
-
+ 
     @GetMapping
     public List<Insumo> list(){
         return insumoRepository.findAll();

@@ -24,8 +24,8 @@ public class AppCardapioBackApplication {
 			Insumo i = new Insumo();
 			i.setNomeInsumo("Patinho");
 			i.setMarcaInsumo("Zaffari");
-			i.setPrecoInsumo("34,50");
-			i.setQuantidadeInsumo("1,200Kg");
+			i.setPrecoInsumo(34.50);
+			i.setQuantidadeInsumo(1200);
 
 			insumoRepository.save(i);
 		};

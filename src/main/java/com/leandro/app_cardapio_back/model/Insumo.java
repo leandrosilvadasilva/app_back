@@ -16,18 +16,22 @@ public class Insumo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "cod_insumo")
     private Long id;
 
-    @Column(name = "nome_insumo")
+    @Column(name = "nome_insumo", length = 45, nullable = false)
     private String nomeInsumo;
     
     @Column(name = "marca_insumo", length = 45, nullable = false)
     private String marcaInsumo;
     
-    @Column(name = "preco_insumo", length = 45, nullable = false)
-    private String precoInsumo;
+    @Column(name = "preco_insumo", length = 12, nullable = false)
+    private double precoInsumo;//decimal no postgres
     
-    @Column(name = "quantidade_insumo", length = 45, nullable = false)
-    private String quantidadeInsumo;
+    @Column(name = "quantidade_insumo", length = 12, nullable = false)
+    private int quantidadeInsumo;
+
+    //tipo_unidade int not null REFERENCES unidade (id_unidade)
+    //tabela de unidade do insumo
     
 }
