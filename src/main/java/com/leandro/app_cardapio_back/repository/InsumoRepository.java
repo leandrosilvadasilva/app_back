@@ -9,3 +9,4 @@ import com.leandro.app_cardapio_back.model.Insumo;
 public interface InsumoRepository extends JpaRepository<Insumo,Long>{
     
 }
+

@@ -1,6 +1,8 @@
 package com.leandro.app_cardapio_back.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +18,7 @@ public class Insumo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "cod_insumo")
+    //@JsonProperty("cod_insumo")
     private Long id;
 
     @Column(name = "nome_insumo", length = 45, nullable = false)

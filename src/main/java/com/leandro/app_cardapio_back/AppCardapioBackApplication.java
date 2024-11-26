@@ -25,7 +25,7 @@ public class AppCardapioBackApplication {
 			i.setNomeInsumo("Patinho");
 			i.setMarcaInsumo("Zaffari");
 			i.setPrecoInsumo(34.50);
-			i.setQuantidadeInsumo(1200);
+			i.setQuantidadeInsumo(1400);
 
 			insumoRepository.save(i);
 		};
