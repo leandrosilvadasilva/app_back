@@ -55,6 +55,22 @@ public class Insumo {
     @Convert(converter = StatusConverter.class)
     private Status status = Status.ATIVO;
 
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /*@NotNull
     @Length(max = 100)
     @Pattern(regexp = "BE|FE")
