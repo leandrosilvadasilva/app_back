@@ -13,7 +13,7 @@ public class InsumoMapper {
         if(insumo == null){
             return null;
         }
-        return new InsumoDTO(insumo.getId(), insumo.getNome_insumo(), "BE");
+        return new InsumoDTO(insumo.getId(), insumo.getNome_insumo(), insumo.getMarca_insumo().getValue());
         // insumo.getMarca_insumo());
     }
 
@@ -28,9 +28,24 @@ public class InsumoMapper {
             insumo.setId(insumoDTO.id());
         }
         insumo.setNome_insumo(insumoDTO.nome_insumo());
-        insumo.setMarca_insumo(Marca.FE);
+        
+        insumo.setMarca_insumo(convertMarcaValue(insumoDTO.marca_insumo()));
+        
+        //insumo.setStatus("Ativo");
         //insumo.setMarca_insumo(insumoDTO.marca_insumo());
         return insumo;
+    }
+
+    public Marca convertMarcaValue(String value){
+        if(value == null){
+            return null;
+        }
+        return switch (value){
+            case "BE" -> Marca.BE;
+            case "FE" -> Marca.FE;
+            default -> throw new IllegalArgumentException("Marca Inválida" + value);
+        };
+
     }
 
 }

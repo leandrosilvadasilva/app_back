@@ -5,19 +5,20 @@ import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.validator.constraints.Length;
 
 import com.leandro.app_cardapio_back.enums.Marca;
+import com.leandro.app_cardapio_back.enums.Status;
 import com.leandro.app_cardapio_back.enums.converters.MarcaConverter;
+import com.leandro.app_cardapio_back.enums.converters.StatusConverter;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+
 import lombok.Data;
 
 //@Table(name = "insumos") Se precisar nomear diferente do nome da classe
@@ -41,12 +42,18 @@ public class Insumo {
     
     @NotNull
     //@Length(max = 100)
-    //@Pattern(regexp = "BE|FE")
     @Column(length = 10, nullable = false)
     //@Enumerated(EnumType.STRING)
     @Convert(converter = MarcaConverter.class)
     private Marca marca_insumo;
 
+
+    @NotNull
+    //@Length(max = 10)
+    //@Pattern(regexp = "Ativo|Inativo")
+    @Column(length = 10, nullable = false)
+    @Convert(converter = StatusConverter.class)
+    private Status status = Status.ATIVO;
 
     /*@NotNull
     @Length(max = 100)
@@ -62,12 +69,7 @@ public class Insumo {
     //private String unidade_insumo;
 
 
-    @NotNull
-    @Length(max = 10)
-    @Pattern(regexp = "Ativo|Inativo")
-    @Column(length = 10, nullable = false)
-    private String status = "Ativo";
-
+   
     
     /*@Column(name = "preco_insumo", length = 12, nullable = false)
     private double precoInsumo;//decimal no postgres

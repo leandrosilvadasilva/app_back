@@ -5,11 +5,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.leandro.app_cardapio_back.dto.InsumoDTO;
 import com.leandro.app_cardapio_back.dto.mapper.InsumoMapper;
-import com.leandro.app_cardapio_back.enums.Marca;
 import com.leandro.app_cardapio_back.exception.RecordNotFoundException;
 import com.leandro.app_cardapio_back.repository.InsumoRepository;
 
@@ -36,7 +34,7 @@ public class InsumoService {
             .collect(Collectors.toList());
     }
 
-    public InsumoDTO findById(@PathVariable @NotNull @Positive Long id){
+    public InsumoDTO findById(@NotNull @Positive Long id){
 
         return insumoRepository.findById(id)
         .map(insumoMapper::toDTO)
@@ -56,7 +54,7 @@ public class InsumoService {
         return insumoRepository.findById(id)
             .map(recordFound -> {
                 recordFound.setNome_insumo(insumo.nome_insumo());   
-                recordFound.setMarca_insumo(Marca.BE);
+                recordFound.setMarca_insumo(insumoMapper.convertMarcaValue(insumo.marca_insumo()));
                 //recordFound.setMarca_insumo(insumo.marca_insumo());
                 return insumoMapper.toDTO(insumoRepository.save(recordFound));
              }).orElseThrow(() -> new RecordNotFoundException(id));
@@ -64,7 +62,7 @@ public class InsumoService {
     }
 
 
-    public void delete(@PathVariable @NotNull @Positive Long id){
+    public void delete(@NotNull @Positive Long id){
         insumoRepository.delete(insumoRepository.findById(id)
             .orElseThrow(() -> new RecordNotFoundException(id)));
 
