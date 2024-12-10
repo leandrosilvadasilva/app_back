@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.leandro.app_cardapio_back.dto.InsumoDTO;
-import com.leandro.app_cardapio_back.service.InsumoService;
+import com.leandro.app_cardapio_back.dto.FichaTecDTO;
+import com.leandro.app_cardapio_back.service.FichaTecService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -27,24 +27,24 @@ import jakarta.validation.constraints.Positive;
 @Validated
 @RestController
 @RequestMapping("/api/insumos")
-public class InsumoController {
+public class FichaTecController {
 
 
-    private final InsumoService insumoService;
+    private final FichaTecService insumoService;
 
-    public InsumoController(
-           InsumoService insumoService)
+    public FichaTecController(
+           FichaTecService insumoService)
         {
         this.insumoService = insumoService;
     }
 
     @GetMapping
-    public List<InsumoDTO> list(){
+    public List<FichaTecDTO> list(){
         return insumoService.list();
     }
 
     @GetMapping("/{id}")
-    public InsumoDTO findById(@PathVariable @NotNull @Positive Long id){
+    public FichaTecDTO findById(@PathVariable @NotNull @Positive Long id){
 
         return insumoService.findById(id);
     }
@@ -52,7 +52,7 @@ public class InsumoController {
     //@RequestMapping("path", method=RequestMethod.POST)
     @PostMapping
     @ResponseStatus(code =  HttpStatus.CREATED)
-    public InsumoDTO create(@RequestBody @Valid @NotNull InsumoDTO insumo){
+    public FichaTecDTO create(@RequestBody @Valid @NotNull FichaTecDTO insumo){
         //System.out.println(insumo.getNome_insumo());
         return insumoService.create(insumo);
         //return ResponseEntity.status(HttpStatus.CREATED)
@@ -60,8 +60,8 @@ public class InsumoController {
     }
 
     @PutMapping("/{id}")
-    public InsumoDTO update(@PathVariable @NotNull @Positive Long id, 
-            @RequestBody @Valid InsumoDTO insumo){
+    public FichaTecDTO update(@PathVariable @NotNull @Positive Long id, 
+            @RequestBody @Valid FichaTecDTO insumo){
           
         return insumoService.update(id, insumo);
             //.map(recordFound -> ResponseEntity.ok().body(recordFound))

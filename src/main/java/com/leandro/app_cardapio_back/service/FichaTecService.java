@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.leandro.app_cardapio_back.dto.InsumoDTO;
-import com.leandro.app_cardapio_back.dto.mapper.InsumoMapper;
+import com.leandro.app_cardapio_back.dto.FichaTecDTO;
+import com.leandro.app_cardapio_back.dto.mapper.FichaTecMapper;
 import com.leandro.app_cardapio_back.exception.RecordNotFoundException;
-import com.leandro.app_cardapio_back.repository.InsumoRepository;
+import com.leandro.app_cardapio_back.repository.FichaTecRepository;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -17,39 +17,39 @@ import jakarta.validation.constraints.Positive;
 
 @Validated
 @Service
-public class InsumoService {
+public class FichaTecService {
 
-    private final InsumoRepository insumoRepository;
-    private final InsumoMapper insumoMapper;
+    private final FichaTecRepository insumoRepository;
+    private final FichaTecMapper insumoMapper;
     
-    public InsumoService(InsumoRepository insumoRepository, InsumoMapper insumoMapper){
+    public FichaTecService(FichaTecRepository insumoRepository, FichaTecMapper insumoMapper){
         this.insumoRepository = insumoRepository;
         this.insumoMapper = insumoMapper;
     }
 
-    public List<InsumoDTO> list(){
+    public List<FichaTecDTO> list(){
         return insumoRepository.findAll()
             .stream()
             .map(insumoMapper::toDTO)
             .collect(Collectors.toList());
     }
 
-    public InsumoDTO findById(@NotNull @Positive Long id){
+    public FichaTecDTO findById(@NotNull @Positive Long id){
 
         return insumoRepository.findById(id)
         .map(insumoMapper::toDTO)
         .orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public InsumoDTO create(@Valid @NotNull InsumoDTO insumo){
+    public FichaTecDTO create(@Valid @NotNull FichaTecDTO insumo){
         //System.out.println(insumo.getNome_insumo());
         return insumoMapper.toDTO(insumoRepository.save(insumoMapper.toEntity(insumo)));
         //return ResponseEntity.status(HttpStatus.CREATED)
         //.body(insumoRepository.save(insumo));
     }
 
-    public InsumoDTO update(@NotNull @Positive Long id, 
-            @Valid @NotNull InsumoDTO insumo){
+    public FichaTecDTO update(@NotNull @Positive Long id, 
+            @Valid @NotNull FichaTecDTO insumo){
           
         return insumoRepository.findById(id)
             .map(recordFound -> {

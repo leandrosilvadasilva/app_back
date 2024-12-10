@@ -2,7 +2,7 @@ package com.leandro.app_cardapio_back.enums;
 
 public enum Marca {
     
-    BE("be"), FE("fe");
+    BE("BE"), FE("FE");
 
     private String value;
 
