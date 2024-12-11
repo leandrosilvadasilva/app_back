@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import com.leandro.app_cardapio_back.dto.FichaTecDTO;
 import com.leandro.app_cardapio_back.dto.mapper.FichaTecMapper;
 import com.leandro.app_cardapio_back.exception.RecordNotFoundException;
+import com.leandro.app_cardapio_back.model.FichaTec;
 import com.leandro.app_cardapio_back.repository.FichaTecRepository;
 
 import jakarta.validation.Valid;
@@ -42,20 +43,21 @@ public class FichaTecService {
     }
 
     public FichaTecDTO create(@Valid @NotNull FichaTecDTO insumo){
-        //System.out.println(insumo.getNome_insumo());
+
         return insumoMapper.toDTO(insumoRepository.save(insumoMapper.toEntity(insumo)));
-        //return ResponseEntity.status(HttpStatus.CREATED)
-        //.body(insumoRepository.save(insumo));
     }
 
     public FichaTecDTO update(@NotNull @Positive Long id, 
-            @Valid @NotNull FichaTecDTO insumo){
+            @Valid @NotNull FichaTecDTO fichaTecDTO){
           
         return insumoRepository.findById(id)
             .map(recordFound -> {
-                recordFound.setNome_insumo(insumo.nome_insumo());   
-                recordFound.setMarca_insumo(insumoMapper.convertMarcaValue(insumo.marca_insumo()));
-                //recordFound.setMarca_insumo(insumo.marca_insumo());
+                FichaTec fichaTec = insumoMapper.toEntity(fichaTecDTO);
+                recordFound.setNome_insumo(fichaTecDTO.nome_insumo());   
+                recordFound.setMarca_insumo(insumoMapper.convertMarcaValue(fichaTecDTO.marca_insumo()));
+                //recordFound.setProdutos(fichaTec.getProdutos());    
+                recordFound.getProdutos().clear();
+                fichaTec.getProdutos().forEach(recordFound.getProdutos()::add);
                 return insumoMapper.toDTO(insumoRepository.save(recordFound));
              }).orElseThrow(() -> new RecordNotFoundException(id));
                   
@@ -65,14 +67,6 @@ public class FichaTecService {
     public void delete(@NotNull @Positive Long id){
         insumoRepository.delete(insumoRepository.findById(id)
             .orElseThrow(() -> new RecordNotFoundException(id)));
-
-
-      /*   insumoRepository.findById(id)
-        .map(recordFound -> {
-                insumoRepository.deleteById(id);
-                return true;
-            }).orElseThrow(() -> new RecordNotFoundException(id));
-            */
             
         }
     }

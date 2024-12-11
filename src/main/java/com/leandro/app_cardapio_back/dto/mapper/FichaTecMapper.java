@@ -9,6 +9,7 @@ import com.leandro.app_cardapio_back.dto.FichaTecDTO;
 import com.leandro.app_cardapio_back.dto.ProdutoDTO;
 import com.leandro.app_cardapio_back.enums.Marca;
 import com.leandro.app_cardapio_back.model.FichaTec;
+import com.leandro.app_cardapio_back.model.Produto;
 
 @Component
 public class FichaTecMapper {
@@ -27,7 +28,6 @@ public class FichaTecMapper {
             fichaTec.getMarca_insumo().getValue(),
             produtos
         );
-        // insumo.getMarca_insumo());
     }
 
     public FichaTec toEntity(FichaTecDTO fichaTecDTO){
@@ -41,11 +41,19 @@ public class FichaTecMapper {
             insumo.setId(fichaTecDTO.id());
         }
         insumo.setNome_insumo(fichaTecDTO.nome_insumo());
-        
         insumo.setMarca_insumo(convertMarcaValue(fichaTecDTO.marca_insumo()));
-        
-        //insumo.setStatus("Ativo");
-        //insumo.setMarca_insumo(insumoDTO.marca_insumo());
+
+        List<Produto> produtos = fichaTecDTO.produtos().stream().map(produtoDTO ->{
+                var produto = new Produto();
+                produto.setId(produtoDTO.id());
+                produto.setNomeProduto(produtoDTO.nomeProduto());
+                produto.setMarcaProduto(produtoDTO.marcaProduto());
+                produto.setFichaTec(insumo);
+                return produto;
+
+        }).collect(Collectors.toList());
+        insumo.setProdutos(produtos);
+              
         return insumo;
     }
 

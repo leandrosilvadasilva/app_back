@@ -49,14 +49,13 @@ public class FichaTecController {
         return insumoService.findById(id);
     }
 
-    //@RequestMapping("path", method=RequestMethod.POST)
+    
     @PostMapping
     @ResponseStatus(code =  HttpStatus.CREATED)
     public FichaTecDTO create(@RequestBody @Valid @NotNull FichaTecDTO insumo){
-        //System.out.println(insumo.getNome_insumo());
+    
         return insumoService.create(insumo);
-        //return ResponseEntity.status(HttpStatus.CREATED)
-        //.body(insumoRepository.save(insumo));
+    
     }
 
     @PutMapping("/{id}")
@@ -64,8 +63,7 @@ public class FichaTecController {
             @RequestBody @Valid FichaTecDTO insumo){
           
         return insumoService.update(id, insumo);
-            //.map(recordFound -> ResponseEntity.ok().body(recordFound))
-              //  .orElse(ResponseEntity.notFound().build());
+    
     }
 
     @DeleteMapping("/{id}")
@@ -74,9 +72,5 @@ public class FichaTecController {
         
         insumoService.delete(id);
 
-        /*if (insumoService.delete(id)){
-            return ResponseEntity.noContent().<Void>build();        
-        }
-            return (ResponseEntity.notFound().build());*/
     }
 }
