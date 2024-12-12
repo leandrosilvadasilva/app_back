@@ -12,15 +12,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leandro.app_cardapio_back.dto.FichaTecDTO;
+import com.leandro.app_cardapio_back.dto.FichaTecPageDTO;
 import com.leandro.app_cardapio_back.service.FichaTecService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 
 
@@ -39,9 +43,17 @@ public class FichaTecController {
     }
 
     @GetMapping
-    public List<FichaTecDTO> list(){
-        return insumoService.list();
+    public FichaTecPageDTO list(@RequestParam(defaultValue = "0" ) @PositiveOrZero int page, 
+                @RequestParam(defaultValue = "10" ) @Positive @Max(100) int size){
+        
+                return insumoService.list(page, size);
     }
+
+
+  //  @GetMapping
+   // public FichaTecPageDTO list(){
+   //     return insumoService.list();
+    //}
 
     @GetMapping("/{id}")
     public FichaTecDTO findById(@PathVariable @NotNull @Positive Long id){

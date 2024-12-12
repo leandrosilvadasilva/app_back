@@ -21,14 +21,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-import lombok.Data;
+
 
 //@Table(name = "insumos") Se precisar nomear diferente do nome da classe
 
-@Data
+
 @Entity
 @SQLDelete(sql = "UPDATE Insumo SET status = 'Inativo' WHERE id = ?")
 @SQLRestriction("status <> 'Inativo'")
@@ -61,10 +63,61 @@ public class FichaTec {
     private Status status = Status.ATIVO;
 
     
+    @NotNull
+    @NotEmpty
+    @Valid
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "fichaTec")
     private List<Produto> produtos = new ArrayList<>();
 
 
+    public Long getId() {
+        return id;
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    public String getNome_insumo() {
+        return nome_insumo;
+    }
+
+
+    public void setNome_insumo(String nome_insumo) {
+        this.nome_insumo = nome_insumo;
+    }
+
+
+    public Marca getMarca_insumo() {
+        return marca_insumo;
+    }
+
+
+    public void setMarca_insumo(Marca marca_insumo) {
+        this.marca_insumo = marca_insumo;
+    }
+
+
+    public Status getStatus() {
+        return status;
+    }
+
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
 
 
 
@@ -75,31 +128,5 @@ public class FichaTec {
 
 
 
-
-
-    /*@NotNull
-    @Length(max = 100)
-    @Pattern(regexp = "BE|FE")
-    @Column(name = "marca_insumo", length = 100, nullable = false)
-    private String marca_insumo;*/
-
-
-
-    //@NotNull
-    //@Length(max = 100)
-    //@Column(name = "marca_insumo", length = 100, nullable = false)
-    //private String unidade_insumo;
-
-
-   
-    
-    /*@Column(name = "preco_insumo", length = 12, nullable = false)
-    private double precoInsumo;//decimal no postgres
-    
-    @Column(name = "quantidade_insumo", length = 12, nullable = false)
-    private int quantidadeInsumo;*/
-
-    //tipo_unidade int not null REFERENCES unidade (id_unidade)
-    //tabela de unidade do insumo
     
 }

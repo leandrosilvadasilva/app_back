@@ -22,25 +22,30 @@ public class AppCardapioBackApplication {
 		return args -> {
 			insumoRepository.deleteAll();
 
-			FichaTec i = new FichaTec();
-			
-			i.setNome_insumo("Patinho");
-			i.setMarca_insumo(Marca.FE);
-			
-			Produto p = new Produto();
-			p.setMarcaProduto("Zaffari");
-			p.setNomeProduto("Arroz");
-			p.setFichaTec(i);
-			i.getProdutos().add(p);
+			for(int i = 0; i < 20; i++){
 
 
-			Produto p2 = new Produto();
-			p2.setMarcaProduto("Granja");
-			p2.setNomeProduto("Ovo");
-			p2.setFichaTec(i);
-			i.getProdutos().add(p2);
+					FichaTec f = new FichaTec();
+					
+					f.setNome_insumo("Prato Da ficha " + i);
+					f.setMarca_insumo(Marca.FE);
+					
+					Produto p = new Produto();
+					p.setMarcaProduto("Zaffari");
+					p.setNomeProduto("Arroz");
+					p.setFichaTec(f);
+					f.getProdutos().add(p);
 
-			insumoRepository.save(i);
+
+					Produto p2 = new Produto();
+					p2.setMarcaProduto("Granja");
+					p2.setNomeProduto("Ovo");
+					p2.setFichaTec(f);
+					f.getProdutos().add(p2);
+
+					insumoRepository.save(f);
+
+			}
 		};
 
 	}
